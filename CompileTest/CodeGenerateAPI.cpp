@@ -3,9 +3,10 @@
 
 CodeGenerateAPI::CodeGenerateAPI()
 {
+	SyntaxTree = nullptr;
 }
-
-
-CodeGenerateAPI::~CodeGenerateAPI()
+CodeGenerateAPI::CodeGenerateAPI(Tree* tree)
 {
+	SyntaxTree = tree;
 }
+

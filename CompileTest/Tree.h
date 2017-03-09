@@ -7,36 +7,43 @@ enum NODETYPE
 };
 class Node{
 public:
+	void Clear();
+	virtual void VirtualFun();
+	void DeepTreval(void(*Fun)(Node*));
 	NODETYPE NodeType;
-
+	void DeepTreval(void* Fun);
+	Node(NODETYPE nodetype);
 };
-class Number :Node{
+class Number :public Node{
 public:
 	double Value;
 	Number(double value);
 	Number();
 };
-class Var :Node{
+class Var :public Node{
 public:
 	char VarName;
 	Var(char varName);
+	Var();
 };
-class BinaryOperator{
+class BinaryOperator :public Node{
 public:
 	Node* LeftOperand;
 	Node* RightOperand;
 	char Operate;
 	BinaryOperator(Node* left, Node* right, char operate);
+	BinaryOperator();
 };
-class RightOperator :Node{
+class RightOperator :public Node{
 public:
-	Node* Operater;
+	Node* Operand;
 	char Operate;
+	RightOperator();
+	RightOperator(Node* par_Operator,char operate);
 };
 class Tree{
-private:
-	Node* root;
 public:
+	Node* root;
 	Tree(Node* node);
 	void Clear();
 };
