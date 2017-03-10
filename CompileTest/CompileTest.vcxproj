@@ -64,17 +64,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CodeGenerateAPI.h" />
+    <ClInclude Include="CodeGenerateAPIImpl.h" />
     <ClInclude Include="LEGOP.h" />
     <ClInclude Include="lexya_a.tab.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CompileTest.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CodeGenerateAPI.cpp" />
+    <ClCompile Include="CodeGenerateAPIImpl.cpp" />
     <ClCompile Include="LEGOP.cpp" />
     <ClCompile Include="lex.yy.c" />
     <ClCompile Include="lexya_a.tab.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="Tree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

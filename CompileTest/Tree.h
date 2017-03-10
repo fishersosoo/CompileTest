@@ -1,3 +1,11 @@
+#ifndef _VECTOR_
+#include <vector>
+#endif
+
+#ifndef _STRING_
+#include <string>
+#endif
+
 enum NODETYPE
 {
 	NUMBER=0,
@@ -5,8 +13,15 @@ enum NODETYPE
 	BINARYOP,
 	RIGHTOP
 };
+struct NodeInfo
+{
+	std::vector<std::string>TempAddr;
+
+	std::string NodeAddr;
+};
 class Node{
 public:
+	NodeInfo node_info_;
 	void Clear();
 	virtual void VirtualFun();
 	void DeepTreval(void(*Fun)(Node*));

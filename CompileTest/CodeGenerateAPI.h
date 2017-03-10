@@ -1,15 +1,19 @@
 #pragma once
 #include"Tree.h"
 #include<string>
+#include<vector>
+#ifndef BYTE
+#define BYTE unsigned char
+#endif
+
 class CodeGenerateAPI
 {
 public:
 	Tree* SyntaxTree;
 	CodeGenerateAPI(Tree* tree);
-	virtual std::string GenerateCode()=0;
-	virtual std::string GetVarAddr(char var)=0;
-	virtual std::string GetTempAddr(int Id)=0;
 	CodeGenerateAPI();
-	~CodeGenerateAPI();
+	virtual std::string GenerateCode(std::string str) = 0;
+	virtual std::string GetVarAddr(char var) = 0;
+	virtual std::string GetTempAddr() = 0;
 };
 

@@ -24,6 +24,15 @@
     <ClInclude Include="LEGOP.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="CodeGenerateAPI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeGenerateAPIImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CompileTest.rc">
@@ -40,5 +49,22 @@
     <ClCompile Include="LEGOP.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="CodeGenerateAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CodeGenerateAPIImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
 </Project>
