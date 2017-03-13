@@ -1,6 +1,23 @@
 # 编译框架 #
+
+本框架用于对字符串解析然后生成语法分析树，然后根据指令集对语法树深度优先遍历生成二进制机器码。
+
+当文法和词法结构发生改变的时候，修改lex和yacc重新生成代码。
+
+Tree.h描述的是语法树结构。
+
+CodeGenerateAPI.h声明代码生成接口，需要实现`std::string GenerateCode(std::string str)`和`std::string GetVarAddr(char var)`。此接口和Tree是耦合的，我也很无奈。
+
+CodeGenerateAPIImpl.h声明一个实现，对应20160521版本的汇编指令集。
+
+当汇编指令集发生改变时候，只需要修改此实现。
+
 ## lex 和 yacc设置 ##
-lex设置
+
+先设定好文法规则和词法规则。
+
+### lex设置 lexya_a.l
+
 ```lex
 %{
   #include<stdlib.h>
@@ -14,10 +31,10 @@ lex设置
 		}
 %}
 %%
-([1-9][0-9]+)|([0-9])       { yylval = atoi(yytext); return INTEGER; }
+([1-9][0-9]+)|([0-9])       { yylval.Double = atof(yytext); return INTEGER; }
 [-+*/]       {return *yytext;}
 [\t]         {}
-[abcd]        {return yylval=yytext;return VAR;}
+[abcd]        {yylval.Char=*yytext;return VARA;}
 [(]           {return *yytext;}
 [)]           {return *yytext;}
 .            {yyerror("��Ч�ַ�");}
@@ -29,67 +46,140 @@ int yywrap(void)
 }
 
 ```
-yacc设置
+### yacc设置 lexya_a.y
+
 ```yacc
 %{
 #include <stdlib.h>
+#ifndef TREE_H
+#include "Tree.h"
+#endif
 #define YYLEX_PARAM str
 int yylex(char* str);
 void yyerror(char *);
+static Tree* TreePtr;
 %}
-%token INTEGER
-%token VAR
+%union {
+    Node* node;
+	Tree* tree;
+	char Char;
+	double Double;
+}
+%token <Double> INTEGER
+%token <Char> VARA
 %left '+' '-'
 %left '*' '/'
 %right UMINUS
+
+%type <node> expr
 %%
-program : program expr '\n' { printf("end");}
+program : program expr '\n' { TreePtr=new Tree($2);return 1;}
         |
         ;
-expr : INTEGER { $$ = $1; }
-     | expr '*' expr { $$ = $1 * $3;  printf("%d = %d * %d \n", $$,$1,$3);}
-     | expr '/' expr { $$ = $1 / $3; printf("%d = %d / %d \n", $$,$1,$3);}
-     | expr '+' expr { $$ = $1 + $3; printf("%d = %d + %d \n", $$,$1,$3);}
-     | expr '-' expr { $$ = $1 - $3; printf("%d = %d - %d \n", $$,$1,$3);}
-     | '('expr')'{$$=$2;printf("%d =  %d \n", $$,$2);}
-     | '-' expr %prec UMINUS{$$=-$2;printf("%d = - %d \n", $$,$2);}
-     | VAR {}
+expr : INTEGER { $$ = new Number($1); }
+     | expr '*' expr { $$ = new BinaryOperator($1,$3,'*');}
+     | expr '/' expr { $$ = new BinaryOperator($1,$3,'/');}
+     | expr '+' expr { $$ = new BinaryOperator($1,$3,'+');}
+     | expr '-' expr { $$ = new BinaryOperator($1,$3,'-');}
+     | '('expr')'{$$=$2;}
+     | '-' expr %prec UMINUS{$$ = new RightOperator($2,'-');}
+     | VARA { $$ = new Var($1);}
      ;
 %%
 void yyerror(char *s) 
 {
   printf("%s\n", s);
 }
-int LEGO_Parse(char* str) 
+Tree* LEGO_Parse(char* str) 
 {
+  if(TreePtr!=NULL){
+	  TreePtr->Clear();
+	  TreePtr=NULL;
+  }
   yyparse(str);
-  return 0;
+  return TreePtr;
 }
 ```
+### 生成代码
+
+执行`win_flex.exe --wincompat lexya_a.l`得到`lex.yy.c`。
+
+执行`win_bison.exe -d lexya_a.y`得到`lexya_a.tab.c`和`lexya_a.tab.h`。
+
+由于c和c++语法相近，为了避免编译时候奇奇怪怪问题，直接修将.c修改成.cpp。
+
+### 修改生成的代码
+
+#### lexya_a.tab.h
+
+首先检查候头文件`Tree.h`的引用是否规范。
+
+```c++
+#ifndef TREE_H
+#include "Tree.h"
+#endif
+```
+
+检查函数`yyparse()`的定义
+
+```c++
+int yyparse (char *str);
+```
+
+在文件最后添加函数声明`Tree* LEGO_Parse(char* str);`
+
 修改生成文件`lexya_a.tab.c`
 修改`yyparse()`定义
-查找
-```c
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void *YYPARSE_PARAM);
-#else
-```
-将活动的预处理器模块中`yyparse()`定义修改为`int yyparse (char* str)`。
 
-修改`yyparse()`的声明
-搜索`| yyparse.  |`找到声明的活动预处理快
-修改
-```c
+#### lexya_a.tab.cpp
+
+在文件最下面找到如下代码
+
+```c++
+Tree* LEGO_Parse(char* str) 
+{
+  if(TreePtr!=NULL){
+	  TreePtr->Clear();
+	  TreePtr=NULL;
+  }
+  yyparse(str);
+  return TreePtr;
+}
+```
+
+右键`yyparse(str);`找到定义，检查定义是否为
+
+```c++
 int
 yyparse (char* str)
 ```
 
->   `Lex` 生成的代码可能在 vs 下编译可能会出现 `fileno` 报错，只要改成 `_fileno`就可以了
+## 接口函数
 
-# yacc里面的一些设置
+再通过`LEGOP.h`里面的`Tree* LEGOP(char* str)`就可以获得语法树。失败的时候返回`NULL`。
 
-### 设置符号值的类型
+## 使用
+
+在需要进行语法分析的类里面，包含`CodeGenerateAPIImpl.h`。然后构造`MemoryInfo`实例，分别将
+
+```c++
+	std::map<char, std::string> VarNameToAddr;
+	std::set<std::string> TempAddrs;
+```
+
+设置好，用于构造`CodeGenerateAPIImpl`实例。
+
+然后设置解析错误的回调函数`SetErrorCallback(回调函数指针)`
+
+“注意回调函数是类函数的话要声明成static。”
+
+调用`std::string GenerateCode(std::string str)`获得生成的二进制机器码。“str中\n表示末尾，所以请只在末尾加\n”。
+
+# 相关说明
+
+### yacc里面的一些设置
+
+#### 设置符号值的类型
 
 将数据结构定义到外部的头文件中，在 yacc 中 include 进去
 
@@ -122,6 +212,6 @@ yyparse (char* str)
 
 如果不需要使用某个符号的值的时候，大可以不用定义类型，不过定义符号还是要的。当 yacc 中存在 union ，所有所有使用值的符号都需要类型定义（就不会默认是 int 了）。
 
-### action 部分
+#### action 部分
 
 `$$` 表示产生式左边符号的值，`$x` 表示产生式右边第x个符号（可以是终结符也可以是非终结符）。所以打印结果的加法式子 `E->a+b` action应该这样写`{printf(%d =%d + %d);}`。

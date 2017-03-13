@@ -1355,7 +1355,7 @@ yyreduce:
         case 2:
 /* Line 1792 of yacc.c  */
 #line 23 "lexya_a.y"
-		{ TreePtr = new Tree((yyvsp[(2) - (3)].node)); return 1; }
+		{ TreePtr = new Tree((yyvsp[(2) - (3)].node)); return 99; }
     break;
 
   case 4:
@@ -1652,6 +1652,8 @@ Tree* LEGO_Parse(char* str)
 	  TreePtr->Clear();
 	  TreePtr=NULL;
   }
-  yyparse(str);
-  return TreePtr;
+  if (99==yyparse(str))
+	  return TreePtr;
+  else
+	  return nullptr;
 }

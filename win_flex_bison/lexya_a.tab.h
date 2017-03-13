@@ -57,12 +57,12 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 9 "lexya_a.y"
+#line 11 "lexya_a.y"
 
-	double Double;
     Node* node;
 	Tree* tree;
 	char Char;
+	double Double;
 
 
 /* Line 2058 of yacc.c  */

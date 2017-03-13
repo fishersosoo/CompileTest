@@ -22,7 +22,7 @@ static Tree* TreePtr;
 
 %type <node> expr
 %%
-program : program expr '\n' { TreePtr=new Tree($2);return 1;}
+program : program expr '\n' { TreePtr=new Tree($2);return 99;}
         |
         ;
 expr : INTEGER { $$ = new Number($1); }
