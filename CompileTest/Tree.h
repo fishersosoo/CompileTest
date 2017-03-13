@@ -5,7 +5,9 @@
 #ifndef _STRING_
 #include <string>
 #endif
-
+#ifndef TREE_H
+#define TREE_H
+#endif
 enum NODETYPE
 {
 	NUMBER=0,

@@ -18,9 +18,6 @@
     <ClInclude Include="resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="lexya_a.tab.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="LEGOP.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -33,6 +30,9 @@
     <ClInclude Include="CodeGenerateAPIImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="lexya_a.tab.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CompileTest.rc">
@@ -40,12 +40,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lex.yy.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lexya_a.tab.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="LEGOP.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -58,7 +52,13 @@
     <ClCompile Include="CodeGenerateAPIImpl.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.c">
+    <ClCompile Include="lex.yy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lexya_a.tab.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

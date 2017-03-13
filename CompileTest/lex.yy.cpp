@@ -452,8 +452,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
-#line 2 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 1 "lexya_a.l"
+#line 2 "lexya_a.l"
   #include<stdlib.h>
   #define YY_NO_UNISTD_H 1
   void yyerror(char *);
@@ -467,13 +467,10 @@ char *yytext;
 
 #define INITIAL 0
 
-#ifndef YY_NO_UNISTD_H
-/* Special case for "unistd.h", since it is non-ANSI. We include it way
- * down here because we want the user's section 1 to have been scanned first.
- * The user has a chance to override it with an option.
- */
-#include <unistd.h>
-#endif
+/*windows compatibility case*/
+#include <io.h>
+#define isatty _isatty
+#define fileno _fileno
     
 #ifndef YY_EXTRA_TYPE
 #define YY_EXTRA_TYPE void *
@@ -645,9 +642,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 12 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 12 "lexya_a.l"
 
-#line 651 "lex.yy.c"
+#line 648 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -732,51 +729,51 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 13 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
-{ yylval = atoi(yytext); return INTEGER; }
+#line 13 "lexya_a.l"
+{ yylval.Double = atof(yytext); return INTEGER; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 14 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 14 "lexya_a.l"
 {return *yytext;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 15 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 15 "lexya_a.l"
 {}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 16 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
-{return yylval=yytext;return VAR;}
+#line 16 "lexya_a.l"
+{yylval.Char=*yytext;return VARA;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 17 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 17 "lexya_a.l"
 {return *yytext;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 18 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 18 "lexya_a.l"
 {return *yytext;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 19 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 19 "lexya_a.l"
 {yyerror("锟斤拷效锟街凤拷");}
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 20 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 20 "lexya_a.l"
 {return *yytext;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 21 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 21 "lexya_a.l"
 ECHO;
 	YY_BREAK
-#line 780 "lex.yy.c"
+#line 777 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1349,7 +1346,7 @@ static void yy_load_buffer_state  (void)
         b->yy_bs_column = 0;
     }
 
-        b->yy_is_interactive = file ? (isatty( _fileno(file) ) > 0) : 0;
+        b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
     
 	errno = oerrno;
 }
@@ -1770,7 +1767,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 21 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.l"
+#line 21 "lexya_a.l"
 
 
 int yywrap(void) 

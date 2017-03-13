@@ -1,4 +1,5 @@
-extern "C"{
-	int LEGO_Parse(char* str);
-}
-void LEGOP(char* str);
+#ifndef LEGOP_H
+#define LEGOP_H
+#endif
+#include "lexya_a.tab.h"
+Tree* LEGOP(char* str);

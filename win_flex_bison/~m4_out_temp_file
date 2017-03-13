@@ -1,3 +1,4 @@
+@output(lexya_a.tab.c@)@
 /* A Bison parser, made by GNU Bison 2.7.  */
 
 /* Bison implementation for Yacc-like parsers in C
@@ -63,15 +64,17 @@
 
 /* Copy the first part of user declarations.  */
 /* Line 371 of yacc.c  */
-#line 1 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
+#line 1 "lexya_a.y"
 
 #include <stdlib.h>
+#include "Tree.h"
 #define YYLEX_PARAM str
 int yylex(char* str);
 void yyerror(char *);
+static Tree* TreePtr;
 
 /* Line 371 of yacc.c  */
-#line 75 "lexya_a.tab.c"
+#line @oline@ @ofile@
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -89,7 +92,10 @@ void yyerror(char *);
 # define YYERROR_VERBOSE 0
 #endif
 
-
+/* In a future release of Bison, this section will be replaced
+   by #include "@basename(lexya_a.tab.h@)".  */
+#ifndef YY_YY_LEXYA_A_TAB_H_INCLUDED
+# define YY_YY_LEXYA_A_TAB_H_INCLUDED
 /* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -105,14 +111,27 @@ extern int yydebug;
       know about them.  */
    enum yytokentype {
      INTEGER = 258,
-     VAR = 259,
+     VARA = 259,
      UMINUS = 260
    };
 #endif
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+/* Line 387 of yacc.c  */
+#line 9 "lexya_a.y"
+
+	double Double;
+    Node* node;
+	Tree* tree;
+	char Char;
+
+
+/* Line 387 of yacc.c  */
+#line @oline@ @ofile@
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -130,16 +149,16 @@ int yyparse ();
 #if defined __STDC__ || defined __cplusplus
 int yyparse (void);
 #else
-int yyparse (char* str);
+int yyparse ();
 #endif
 #endif /* ! YYPARSE_PARAM */
 
-
+#endif /* !YY_YY_LEXYA_A_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 143 "lexya_a.tab.c"
+#line @oline@ @ofile@
 
 #ifdef short
 # undef short
@@ -430,8 +449,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    13,    13,    14,    16,    17,    18,    19,    20,    21,
-      22,    23
+       0,    23,    23,    24,    26,    27,    28,    29,    30,    31,
+      32,    33
 };
 #endif
 
@@ -440,7 +459,7 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "INTEGER", "VAR", "'+'", "'-'", "'*'",
+  "$end", "error", "$undefined", "INTEGER", "VARA", "'+'", "'-'", "'*'",
   "'/'", "UMINUS", "'\\n'", "'('", "')'", "$accept", "program", "expr", YY_NULL
 };
 #endif
@@ -738,7 +757,7 @@ yy_reduce_print (yyvsp, yyrule)
     {
       YYFPRINTF (stderr, "   $%d = ", yyi + 1);
       yy_symbol_print (stderr, yyrhs[yyprhs[yyrule] + yyi],
-		       &(yyvsp[(yyi + 1) - (yynrhs)])
+		       &(yyvsp@{(yyi + 1) - (yynrhs)@})
 		       		       );
       YYFPRINTF (stderr, "\n");
     }
@@ -1090,7 +1109,7 @@ yyparse (YYPARSE_PARAM)
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 int
-yyparse(char* str)
+yyparse (void)
 #else
 int
 yyparse ()
@@ -1332,61 +1351,61 @@ yyreduce:
     {
         case 2:
 /* Line 1792 of yacc.c  */
-#line 13 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { printf("end");}
+#line 23 "lexya_a.y"
+    { TreePtr=new Tree((yyvsp@{(2) - (3)@}.node));}
     break;
 
   case 4:
 /* Line 1792 of yacc.c  */
-#line 16 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { (yyval) = (yyvsp[(1) - (1)]); }
+#line 26 "lexya_a.y"
+    { (yyval.node) = new Number((yyvsp@{(1) - (1)@}.Double)); }
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 17 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { (yyval) = (yyvsp[(1) - (3)]) * (yyvsp[(3) - (3)]);  printf("%d = %d * %d \n", (yyval),(yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]));}
+#line 27 "lexya_a.y"
+    { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'*');}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 18 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { (yyval) = (yyvsp[(1) - (3)]) / (yyvsp[(3) - (3)]); printf("%d = %d / %d \n", (yyval),(yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]));}
+#line 28 "lexya_a.y"
+    { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'/');}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 19 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { (yyval) = (yyvsp[(1) - (3)]) + (yyvsp[(3) - (3)]); printf("%d = %d + %d \n", (yyval),(yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]));}
+#line 29 "lexya_a.y"
+    { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'+');}
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 20 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    { (yyval) = (yyvsp[(1) - (3)]) - (yyvsp[(3) - (3)]); printf("%d = %d - %d \n", (yyval),(yyvsp[(1) - (3)]),(yyvsp[(3) - (3)]));}
+#line 30 "lexya_a.y"
+    { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'-');}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 21 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    {(yyval)=(yyvsp[(2) - (3)]);printf("%d =  %d \n", (yyval),(yyvsp[(2) - (3)]));}
+#line 31 "lexya_a.y"
+    {(yyval.node)=(yyvsp@{(2) - (3)@}.node);}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 22 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    {(yyval)=-(yyvsp[(2) - (2)]);printf("%d = - %d \n", (yyval),(yyvsp[(2) - (2)]));}
+#line 32 "lexya_a.y"
+    {(yyval.node) = new RightOperator((yyvsp@{(2) - (2)@}.node),'-');}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 23 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
-    {}
+#line 33 "lexya_a.y"
+    { (yyval.node) = new Var((yyvsp@{(1) - (1)@}.Char));}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1390 "lexya_a.tab.c"
+#line @oline@ @ofile@
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1618,14 +1637,110 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 25 "D:\\作业\\编译原理\\实验3\\bison和flex工具\\win_flex_bison\\lexya_a.y"
+#line 35 "lexya_a.y"
 
 void yyerror(char *s) 
 {
   printf("%s\n", s);
 }
-int LEGO_Parse(char* str) 
+Tree* LEGO_Parse(char* str) 
 {
+  if(TreePtr!=NULL){
+	  TreePtr->Clear();
+	  TreePtr=NULL;
+  }
   yyparse(str);
-  return 0;
-}
+  return TreePtr;
+}@output(lexya_a.tab.h@)@
+/* A Bison parser, made by GNU Bison 2.7.  */
+
+/* Bison interface for Yacc-like parsers in C
+   
+      Copyright (C) 1984, 1989-1990, 2000-2012 Free Software Foundation, Inc.
+   
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
+
+/* As a special exception, you may create a larger work that contains
+   part or all of the Bison parser skeleton and distribute that work
+   under terms of your choice, so long as that work isn't itself a
+   parser generator using the skeleton or a modified version thereof
+   as a parser skeleton.  Alternatively, if you modify or redistribute
+   the parser skeleton itself, you may (at your option) remove this
+   special exception, which will cause the skeleton and the resulting
+   Bison output files to be licensed under the GNU General Public
+   License without this special exception.
+   
+   This special exception was added by the Free Software Foundation in
+   version 2.2 of Bison.  */
+
+#ifndef YY_YY_LEXYA_A_TAB_H_INCLUDED
+# define YY_YY_LEXYA_A_TAB_H_INCLUDED
+/* Enabling traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
+#endif
+#if YYDEBUG
+extern int yydebug;
+#endif
+
+/* Tokens.  */
+#ifndef YYTOKENTYPE
+# define YYTOKENTYPE
+   /* Put the tokens into the symbol table, so that GDB and other debuggers
+      know about them.  */
+   enum yytokentype {
+     INTEGER = 258,
+     VARA = 259,
+     UMINUS = 260
+   };
+#endif
+
+
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+typedef union YYSTYPE
+{
+/* Line 2058 of yacc.c  */
+#line 9 "lexya_a.y"
+
+	double Double;
+    Node* node;
+	Tree* tree;
+	char Char;
+
+
+/* Line 2058 of yacc.c  */
+#line @oline@ @ofile@
+} YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define yystype YYSTYPE /* obsolescent; will be withdrawn */
+# define YYSTYPE_IS_DECLARED 1
+#endif
+
+extern YYSTYPE yylval;
+
+#ifdef YYPARSE_PARAM
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void *YYPARSE_PARAM);
+#else
+int yyparse ();
+#endif
+#else /* ! YYPARSE_PARAM */
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void);
+#else
+int yyparse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
+
+#endif /* !YY_YY_LEXYA_A_TAB_H_INCLUDED  */

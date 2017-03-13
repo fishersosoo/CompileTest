@@ -35,10 +35,6 @@
 /* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
-#ifndef TREE_H
-#include "Tree.h"
-#endif
-
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -87,11 +83,10 @@ int yyparse ();
 #endif
 #else /* ! YYPARSE_PARAM */
 #if defined __STDC__ || defined __cplusplus
-int yyparse (char *str);
+int yyparse (void);
 #else
 int yyparse ();
 #endif
 #endif /* ! YYPARSE_PARAM */
 
 #endif /* !YY_YY_LEXYA_A_TAB_H_INCLUDED  */
-Tree* LEGO_Parse(char* str);

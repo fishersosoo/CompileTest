@@ -78,9 +78,9 @@
     <ClCompile Include="CodeGenerateAPI.cpp" />
     <ClCompile Include="CodeGenerateAPIImpl.cpp" />
     <ClCompile Include="LEGOP.cpp" />
-    <ClCompile Include="lex.yy.c" />
-    <ClCompile Include="lexya_a.tab.c" />
-    <ClCompile Include="main.c" />
+    <ClCompile Include="lex.yy.cpp" />
+    <ClCompile Include="lexya_a.tab.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
