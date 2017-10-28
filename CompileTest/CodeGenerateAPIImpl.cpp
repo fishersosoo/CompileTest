@@ -100,6 +100,11 @@ std::string CodeGenerateAPIImpl::GetVarAddr(char var)
 
 std::string CodeGenerateAPIImpl::GetTempAddr()
 {
+	if(memory_info_.TempAddrs.empty())
+	{
+		p();
+		return "";
+	}
 	std::string addr=*(memory_info_.TempAddrs.begin());
 	memory_info_.TempAddrs.erase(memory_info_.TempAddrs.begin());
 	return addr;
@@ -116,6 +121,7 @@ std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 	if (SyntaxTree==nullptr)
 	{
 		p();
+		return "";
 	}
 	return GenerateCodeHelper(SyntaxTree->root);
 }
