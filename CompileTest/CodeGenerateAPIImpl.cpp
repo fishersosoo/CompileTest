@@ -31,8 +31,6 @@ std::string CodeGenerateAPIImpl::GenerateCodeHelper(Node* node)
 	switch (node->NodeType)
 	{
 	case NUMBER:
-		//常数节点，叶节点
-		//申请临时空间并将数值赋值到此空间
 		return_str += AssignFloat;
 		TempAddr = GetTempAddr();
 		return_str += TempAddr;
@@ -41,8 +39,6 @@ std::string CodeGenerateAPIImpl::GenerateCodeHelper(Node* node)
 		return_str += Float_convertbyte(dynamic_cast<Number*>(node)->Value);
 		return return_str;
 	case RIGHTOP:
-		//子树深度优先
-		return_str += GenerateCodeHelper(dynamic_cast<RightOperator*>(node)->Operand);
 		return_str += MathCode;
 		return_str += RightOpCMD.at(dynamic_cast<RightOperator*>(node)->Operate);
 		return_str += dynamic_cast<RightOperator*>(node)->Operand->node_info_.NodeAddr;
@@ -52,8 +48,6 @@ std::string CodeGenerateAPIImpl::GenerateCodeHelper(Node* node)
 		node->node_info_.NodeAddr = TempAddr;
 		return return_str;
 	case NODETYPE::VAR:
-		//变量节点，叶节点
-		//申请临时空间并将变量值复制到此空间
 		return_str += CopyFloat;
 		TempAddr = GetTempAddr();
 		return_str += TempAddr;
@@ -62,9 +56,6 @@ std::string CodeGenerateAPIImpl::GenerateCodeHelper(Node* node)
 		return_str += GetVarAddr(dynamic_cast<Var*>(node)->VarName);
 		return return_str;
 	case BINARYOP:
-		//左、右子树深度优先，将结果保存在左操作数地址，右操作数地址释放
-		return_str += GenerateCodeHelper(dynamic_cast<BinaryOperator*>(node)->LeftOperand);
-		return_str += GenerateCodeHelper(dynamic_cast<BinaryOperator*>(node)->RightOperand);
 		return_str += BinaryOpCMD.at(dynamic_cast<BinaryOperator*>(node)->Operate);
 		return_str += dynamic_cast<BinaryOperator*>(node)->LeftOperand->node_info_.NodeAddr;
 		return_str += dynamic_cast<BinaryOperator*>(node)->LeftOperand->node_info_.NodeAddr;
@@ -126,20 +117,12 @@ void CodeGenerateAPIImpl::FreeTempAddr(std::string addr)
 
 std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 {
-	//构建语法树
 	SyntaxTree =static_cast<Tree*> (LEGOP(const_cast<char*>(str.c_str())));
 	if (SyntaxTree==nullptr)
 	{
 		p();
 		return "";
 	}
-	std::string return_str = "";
-	//深度遍历语法树
-	return_str += GenerateCodeHelper(SyntaxTree->root);
-	//获取根节点地址，复制结果
-	return_str += CopyFloat;
-	return_str += ResultAddr;
-	return_str += SyntaxTree->root->node_info_.NodeAddr;
-	return return_str;
+	return GenerateCodeHelper(SyntaxTree->root);
 }
 
