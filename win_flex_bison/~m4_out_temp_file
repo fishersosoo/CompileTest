@@ -67,9 +67,7 @@
 #line 1 "lexya_a.y"
 
 #include <stdlib.h>
-#ifndef TREE_H
 #include "Tree.h"
-#endif
 #define YYLEX_PARAM str
 int yylex(char* str);
 void yyerror(char *);
@@ -123,12 +121,12 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 387 of yacc.c  */
-#line 11 "lexya_a.y"
+#line 9 "lexya_a.y"
 
+	double Double;
     Node* node;
 	Tree* tree;
 	char Char;
-	double Double;
 
 
 /* Line 387 of yacc.c  */
@@ -451,8 +449,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    25,    25,    26,    28,    29,    30,    31,    32,    33,
-      34,    35
+       0,    23,    23,    24,    26,    27,    28,    29,    30,    31,
+      32,    33
 };
 #endif
 
@@ -1353,55 +1351,55 @@ yyreduce:
     {
         case 2:
 /* Line 1792 of yacc.c  */
-#line 25 "lexya_a.y"
-    { TreePtr=new Tree((yyvsp@{(2) - (3)@}.node));return 99;}
+#line 23 "lexya_a.y"
+    { TreePtr=new Tree((yyvsp@{(2) - (3)@}.node));}
     break;
 
   case 4:
 /* Line 1792 of yacc.c  */
-#line 28 "lexya_a.y"
+#line 26 "lexya_a.y"
     { (yyval.node) = new Number((yyvsp@{(1) - (1)@}.Double)); }
     break;
 
   case 5:
 /* Line 1792 of yacc.c  */
-#line 29 "lexya_a.y"
+#line 27 "lexya_a.y"
     { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'*');}
     break;
 
   case 6:
 /* Line 1792 of yacc.c  */
-#line 30 "lexya_a.y"
+#line 28 "lexya_a.y"
     { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'/');}
     break;
 
   case 7:
 /* Line 1792 of yacc.c  */
-#line 31 "lexya_a.y"
+#line 29 "lexya_a.y"
     { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'+');}
     break;
 
   case 8:
 /* Line 1792 of yacc.c  */
-#line 32 "lexya_a.y"
+#line 30 "lexya_a.y"
     { (yyval.node) = new BinaryOperator((yyvsp@{(1) - (3)@}.node),(yyvsp@{(3) - (3)@}.node),'-');}
     break;
 
   case 9:
 /* Line 1792 of yacc.c  */
-#line 33 "lexya_a.y"
+#line 31 "lexya_a.y"
     {(yyval.node)=(yyvsp@{(2) - (3)@}.node);}
     break;
 
   case 10:
 /* Line 1792 of yacc.c  */
-#line 34 "lexya_a.y"
+#line 32 "lexya_a.y"
     {(yyval.node) = new RightOperator((yyvsp@{(2) - (2)@}.node),'-');}
     break;
 
   case 11:
 /* Line 1792 of yacc.c  */
-#line 35 "lexya_a.y"
+#line 33 "lexya_a.y"
     { (yyval.node) = new Var((yyvsp@{(1) - (1)@}.Char));}
     break;
 
@@ -1639,7 +1637,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 37 "lexya_a.y"
+#line 35 "lexya_a.y"
 
 void yyerror(char *s) 
 {
@@ -1713,12 +1711,12 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2058 of yacc.c  */
-#line 11 "lexya_a.y"
+#line 9 "lexya_a.y"
 
+	double Double;
     Node* node;
 	Tree* tree;
 	char Char;
-	double Double;
 
 
 /* Line 2058 of yacc.c  */
