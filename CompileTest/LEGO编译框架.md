@@ -165,6 +165,7 @@ yyparse (char* str)
 ```c++
 	std::map<char, std::string> VarNameToAddr;
 	std::set<std::string> TempAddrs;
+	std::string ResultAddr;
 ```
 
 设置好，用于构造`CodeGenerateAPIImpl`实例。

@@ -31,6 +31,7 @@ public:
 	const BYTE MathCode = 0x0D;
 	std::map<char, BYTE> BinaryOpCMD;
 	std::map<char, BYTE>RightOpCMD;
+	std::string ResultAddr;
 	void initMap();
 	MemoryInfo memory_info_;
 	CodeGenerateAPIImpl();
