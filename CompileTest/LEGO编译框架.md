@@ -160,21 +160,36 @@ yyparse (char* str)
 
 ## 使用
 
-在需要进行语法分析的类里面，包含`CodeGenerateAPIImpl.h`。然后构造`MemoryInfo`实例，分别将
+在需要进行语法分析的类里面，包含`CodeGenerateAPIImpl.h`。
+
+使用范例如下
 
 ```c++
+	//设置MemoryInfo实例
+	MemoryInfo memory_info;
 	std::map<char, std::string> VarNameToAddr;
+	VarNameToAddr['a'] = "1";
+	VarNameToAddr['b'] = "2";
 	std::set<std::string> TempAddrs;
-	std::string ResultAddr;
+	TempAddrs.insert("x");
+	TempAddrs.insert("y");
+	TempAddrs.insert("z");
+	memory_info.VarNameToAddr = VarNameToAddr;
+	memory_info.TempAddrs = TempAddrs;
+	//构造CodeGenerateAPIImpl实例
+	CodeGenerateAPIImpl code_generate_api_impl(memory_info);
+	code_generate_api_impl.ResultAddr = "r";
+
+	const char* exp = "1+a";//表达式
+	const char* exe_path = "CompileTestProxy.exe";//外部执行文件路径
+	const char* temp_path = "Temp";//临时文件路径
+	for (int i = 0; i < 10; ++i)
+	{
+		std::cout << code_generate_api_impl.GenerateCodeByProxy(exp, exe_path, temp_path)<< std::endl;
+	}
 ```
 
-设置好，用于构造`CodeGenerateAPIImpl`实例。
-
-然后设置解析错误的回调函数`SetErrorCallback(回调函数指针)`
-
-“注意回调函数是类函数的话要声明成static。”
-
-调用`std::string GenerateCode(std::string str)`获得生成的二进制机器码。“str中\n表示末尾，所以请只在末尾加\n”。
+调用`std::string GenerateCodeByProxy(std::string str, const char* file_path, const char* temp_file_path)`获得生成的二进制机器码。
 
 # 相关说明
 
