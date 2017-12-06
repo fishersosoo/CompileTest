@@ -15,51 +15,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="LEGOP.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CodeGenerateAPI.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="CodeGenerateAPIImpl.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="lexya_a.tab.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CompileTest.rc">
-      <Filter>资源文件</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="LEGOP.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CodeGenerateAPI.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="CodeGenerateAPIImpl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lex.yy.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="lexya_a.tab.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\CompileTest\CodeGenerateAPI.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CompileTest\CodeGenerateAPIImpl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CompileTest\LEGOP.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CompileTest\lex.yy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CompileTest\lexya_a.tab.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CompileTest\Tree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CompileTest\CodeGenerateAPI.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\CodeGenerateAPIImpl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\LEGOP.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\lexya_a.tab.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\node.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CompileTest\Tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

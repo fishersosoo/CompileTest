@@ -1,6 +1,56 @@
 #include "CodeGenerateAPIImpl.h"
 
 
+std::string MemoryInfo::encode()
+{
+	std::stringstream ss;
+	std::string str = "";
+	int var_num = this->VarNameToAddr.size();
+	ss << var_num;
+	std::string var_num_c;
+	ss >> var_num_c;
+	ss.clear();
+	str += var_num_c;
+	str += " ";
+	for (int i = 0; i < var_num; ++i)
+	{
+		char var_name = 'a' + i;
+		str += this->VarNameToAddr[var_name];
+		str += " ";
+	}
+	ss << this->TempAddrs.size();
+	std::string temp_num_c;
+	ss >> temp_num_c;
+	str += temp_num_c;
+	str += " ";
+	for (auto i = this->TempAddrs.cbegin(); i != this->TempAddrs.cend();)
+	{
+		str += (*i);
+		++i;
+		if (i != this->TempAddrs.cend())
+		{
+			str += " ";
+		}
+	}
+	return str;
+}
+
+void MemoryInfo::decode(int argc, char* argv[])
+{
+	int var_num = atoi(argv[2]);
+	std::cout << var_num<< std::endl;
+	for (int i = 0; i < var_num; ++i)
+	{
+		char var_name = 'a' + i;
+		this->VarNameToAddr[var_name] = std::string(argv[i + 3]);
+	}
+	int temp_num = atoi(argv[3 + var_num]);
+	std::cout << temp_num<<std::endl;
+	for (int i = 0; i < temp_num; ++i)
+	{
+		this->TempAddrs.insert(std::string(argv[i + 3 + var_num]));
+	}
+}
 
 std::string CodeGenerateAPIImpl::Float_convertbyte(float FloatNum)
 {
@@ -97,7 +147,9 @@ CodeGenerateAPIImpl::CodeGenerateAPIImpl()
 	initMap();
 }
 
-CodeGenerateAPIImpl::CodeGenerateAPIImpl(MemoryInfo memory_info) :memory_info_(memory_info)
+CodeGenerateAPIImpl::
+CodeGenerateAPIImpl(MemoryInfo memory_info) :
+	memory_info_(memory_info)
 {
 	initMap();
 }
@@ -109,12 +161,12 @@ std::string CodeGenerateAPIImpl::GetVarAddr(char var)
 
 std::string CodeGenerateAPIImpl::GetTempAddr()
 {
-	if(memory_info_.TempAddrs.empty())
+	if (memory_info_.TempAddrs.empty())
 	{
 		p();
 		return "";
 	}
-	std::string addr=*(memory_info_.TempAddrs.begin());
+	std::string addr = *(memory_info_.TempAddrs.begin());
 	memory_info_.TempAddrs.erase(memory_info_.TempAddrs.begin());
 	return addr;
 }
@@ -127,8 +179,8 @@ void CodeGenerateAPIImpl::FreeTempAddr(std::string addr)
 std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 {
 	//¹¹½¨Óï·¨Ê÷
-	SyntaxTree =static_cast<Tree*> (LEGOP(const_cast<char*>(str.c_str())));
-	if (SyntaxTree==nullptr)
+	SyntaxTree = static_cast<Tree*>(LEGOP(const_cast<char*>(str.c_str())));
+	if (SyntaxTree == nullptr)
 	{
 		p();
 		return "";
@@ -143,3 +195,23 @@ std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 	return return_str;
 }
 
+std::string CodeGenerateAPIImpl::GenerateCodeByProxy(std::string str, const char* file_path, const char* temp_file_path)
+{
+	std::string str_param = str + " " + memory_info_.encode() + " " + temp_file_path;
+	SHELLEXECUTEINFO ShExecInfo = {0};
+	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+	ShExecInfo.hwnd = NULL;
+	ShExecInfo.lpVerb = NULL;
+	ShExecInfo.lpFile = file_path;
+	ShExecInfo.lpParameters = str_param.c_str();
+	ShExecInfo.lpDirectory = NULL;
+	ShExecInfo.nShow = SW_HIDE;
+	ShExecInfo.hInstApp = NULL;
+	ShellExecuteEx(&ShExecInfo);
+	WaitForSingleObject(ShExecInfo.hProcess, INFINITE);
+	std::ifstream temp_file(temp_file_path);
+	std::string out_str((std::istreambuf_iterator<char>(temp_file)),
+	                    std::istreambuf_iterator<char>());
+	return out_str;
+}

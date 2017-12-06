@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DFB95A47-F6D3-4548-9E69-4B48875598A9}</ProjectGuid>
-    <RootNamespace>CompileTest</RootNamespace>
-    <ProjectName>CompileTestProxy</ProjectName>
+    <ProjectGuid>{8C5005AF-8CC6-48A1-8F4B-67E7643F8F8A}</ProjectGuid>
+    <RootNamespace>Project1</RootNamespace>
+    <ProjectName>ComplieTest</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -45,6 +45,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\展宁\Documents\Visual Studio 2013\Projects\CompileTest\CompileTest\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -65,24 +66,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CodeGenerateAPI.h" />
-    <ClInclude Include="CodeGenerateAPIImpl.h" />
-    <ClInclude Include="LEGOP.h" />
-    <ClInclude Include="lexya_a.tab.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Tree.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="CompileTest.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="CodeGenerateAPI.cpp" />
-    <ClCompile Include="CodeGenerateAPIImpl.cpp" />
-    <ClCompile Include="LEGOP.cpp" />
-    <ClCompile Include="lex.yy.cpp" />
-    <ClCompile Include="lexya_a.tab.cpp" />
+    <ClCompile Include="..\CompileTest\CodeGenerateAPI.cpp" />
+    <ClCompile Include="..\CompileTest\CodeGenerateAPIImpl.cpp" />
+    <ClCompile Include="..\CompileTest\LEGOP.cpp" />
+    <ClCompile Include="..\CompileTest\lex.yy.cpp" />
+    <ClCompile Include="..\CompileTest\lexya_a.tab.cpp" />
+    <ClCompile Include="..\CompileTest\Tree.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Tree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CompileTest\CodeGenerateAPI.h" />
+    <ClInclude Include="..\CompileTest\CodeGenerateAPIImpl.h" />
+    <ClInclude Include="..\CompileTest\LEGOP.h" />
+    <ClInclude Include="..\CompileTest\lexya_a.tab.h" />
+    <ClInclude Include="..\CompileTest\node.h" />
+    <ClInclude Include="..\CompileTest\resource.h" />
+    <ClInclude Include="..\CompileTest\Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
