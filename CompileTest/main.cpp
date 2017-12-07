@@ -20,7 +20,14 @@ int main(int argc, char* argv[])
 	code_generate_api_impl.ResultAddr = CodeGenerateAPIImpl::IntConvertByte(temp_int);
 	char* temp_file_path = argv[argc - 2];
 	std::fstream temp_file(temp_file_path, std::ios::out| std::ios::trunc);
+	try{
 	temp_file << code_generate_api_impl.GenerateCode(exp);
+	}
+	catch (...)
+	{
+		temp_file.close();
+		return 1;
+	}
 	temp_file.close();
 	return 1;
 }

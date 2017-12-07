@@ -73,7 +73,7 @@
 
 #define YYLEX_PARAM str
 int yylex(char* str);
-void yyerror(char *);
+void yyerror(const char *);
 static Tree* TreePtr;
 
 /* Line 371 of yacc.c  */
@@ -1642,7 +1642,7 @@ yyreturn:
 /* Line 2055 of yacc.c  */
 #line 35 "lexya_a.y"
 
-void yyerror(char *s) 
+void yyerror(const char *s) 
 {
   printf("%s\n", s);
 }

@@ -15,13 +15,14 @@ void main()
 	//构造CodeGenerateAPIImpl实例
 	CodeGenerateAPIImpl code_generate_api_impl(memory_info);
 	code_generate_api_impl.ResultAddr = "6";
-
-	const char* exp = "1+a";//表达式
+	std::string exp;
+	std::cin >> exp;
+	/*const char* exp = "1+(1+a)";*///表达式
 	const char* exe_path = "CompileTestProxy.exe";//外部执行文件路径
 	const char* temp_path = "Temp";//临时文件路径
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
-		std::cout << code_generate_api_impl.GenerateCodeByProxy(exp, exe_path, temp_path)<< std::endl;
+		std::cout << code_generate_api_impl.GenerateCodeByProxy(exp.c_str(), exe_path, temp_path)<< std::endl;
 	}
 	system("pause");
 	return;

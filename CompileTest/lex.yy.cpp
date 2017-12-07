@@ -456,7 +456,7 @@ char *yytext;
 #line 2 "lexya_a.l"
   #include<stdlib.h>
   #define YY_NO_UNISTD_H 1
-  void yyerror(char *);
+  void yyerror(const char *);
   #include "lexya_a.tab.h"
   #define YY_DECL int yylex (char* str)
   #define YY_USER_INIT if ( ! YY_CURRENT_BUFFER ) {\
@@ -760,7 +760,7 @@ YY_RULE_SETUP
 case 7:
 YY_RULE_SETUP
 #line 19 "lexya_a.l"
-{yyerror("��Ч�ַ�");}
+{yyerror("error");}
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */

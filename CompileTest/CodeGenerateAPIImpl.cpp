@@ -209,9 +209,10 @@ std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 	SyntaxTree = static_cast<Tree*>(LEGOP(const_cast<char*>(str.c_str())));
 	if (SyntaxTree == nullptr)
 	{
-		p();
+		std::cout << "error" << std::endl;
 		return "";
 	}
+	
 	std::string return_str = "";
 	//深度遍历语法树
 	return_str += GenerateCodeHelper(SyntaxTree->root);
