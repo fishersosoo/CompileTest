@@ -12,7 +12,13 @@ int main(int argc, char* argv[])
 	MemoryInfo memory_info;
 	memory_info.decode(argc, argv);
 	CodeGenerateAPIImpl code_generate_api_impl(memory_info);
-	char* temp_file_path = argv[argc - 1];
+	std::stringstream ss;
+	std::string temp_string = std::string(argv[argc - 1]);
+	ss << temp_string;
+	unsigned int temp_int;
+	ss >> temp_int;
+	code_generate_api_impl.ResultAddr = CodeGenerateAPIImpl::IntConvertByte(temp_int);
+	char* temp_file_path = argv[argc - 2];
 	std::fstream temp_file(temp_file_path, std::ios::out| std::ios::trunc);
 	temp_file << code_generate_api_impl.GenerateCode(exp);
 	temp_file.close();

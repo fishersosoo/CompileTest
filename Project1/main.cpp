@@ -1,4 +1,3 @@
-#include <Windows.h>
 #include "CodeGenerateAPIImpl.h"
 void main()
 {
@@ -8,14 +7,14 @@ void main()
 	VarNameToAddr['a'] = "1";
 	VarNameToAddr['b'] = "2";
 	std::set<std::string> TempAddrs;
-	TempAddrs.insert("x");
-	TempAddrs.insert("y");
-	TempAddrs.insert("z");
+	TempAddrs.insert("3");
+	TempAddrs.insert("4");
+	TempAddrs.insert("5");
 	memory_info.VarNameToAddr = VarNameToAddr;
 	memory_info.TempAddrs = TempAddrs;
 	//构造CodeGenerateAPIImpl实例
 	CodeGenerateAPIImpl code_generate_api_impl(memory_info);
-	code_generate_api_impl.ResultAddr = "r";
+	code_generate_api_impl.ResultAddr = "6";
 
 	const char* exp = "1+a";//表达式
 	const char* exe_path = "CompileTestProxy.exe";//外部执行文件路径
@@ -26,4 +25,4 @@ void main()
 	}
 	system("pause");
 	return;
-}
+} 

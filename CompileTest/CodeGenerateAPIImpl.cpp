@@ -39,18 +39,45 @@ void MemoryInfo::decode(int argc, char* argv[])
 {
 	int var_num = atoi(argv[2]);
 	std::cout << var_num<< std::endl;
+	std::stringstream ss;
 	for (int i = 0; i < var_num; ++i)
 	{
 		char var_name = 'a' + i;
-		this->VarNameToAddr[var_name] = std::string(argv[i + 3]);
+		std::string temp_string = std::string(argv[i + 3]);
+		unsigned int temp_int;
+		ss << temp_string;
+		ss >> temp_int;
+		ss.clear();
+		this->VarNameToAddr[var_name] = CodeGenerateAPIImpl::IntConvertByte(temp_int);
 	}
 	int temp_num = atoi(argv[3 + var_num]);
 	std::cout << temp_num<<std::endl;
 	for (int i = 0; i < temp_num; ++i)
 	{
-		this->TempAddrs.insert(std::string(argv[i + 3 + var_num]));
+		std::string temp_string = std::string(argv[i + 3 + var_num]);
+		unsigned int temp_int;
+		ss << temp_string;
+		ss >> temp_int;
+		ss.clear();
+		this->TempAddrs.insert(CodeGenerateAPIImpl::IntConvertByte(temp_int));
 	}
 }
+
+std::string CodeGenerateAPIImpl::IntConvertByte(unsigned int IntNum)
+{
+	std::string lvv_target;
+	union addr_byte{
+		unsigned int word_addr;
+		BYTE addrnum_byte[4];
+	};
+	addr_byte lva_addrnumbyte;
+	lva_addrnumbyte.word_addr = IntNum;
+	for (int i = 4 - 1; i >= 0; --i){
+		lvv_target.push_back(lva_addrnumbyte.addrnum_byte[i]);
+	}
+	return lvv_target;
+}
+
 
 std::string CodeGenerateAPIImpl::Float_convertbyte(float FloatNum)
 {
@@ -197,7 +224,7 @@ std::string CodeGenerateAPIImpl::GenerateCode(std::string str)
 
 std::string CodeGenerateAPIImpl::GenerateCodeByProxy(std::string str, const char* file_path, const char* temp_file_path)
 {
-	std::string str_param = str + " " + memory_info_.encode() + " " + temp_file_path;
+	std::string str_param = str + " " + memory_info_.encode() + " " + temp_file_path+" " +ResultAddr;
 	SHELLEXECUTEINFO ShExecInfo = {0};
 	ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
 	ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;

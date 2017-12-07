@@ -34,18 +34,21 @@ struct MemoryInfo
 	std::map<char, std::string> VarNameToAddr;
 	std::set<std::string> TempAddrs;
 };
+
 class CodeGenerateAPIImpl :
 	public CodeGenerateAPI
 {
+
 	std::string Float_convertbyte(float FloatNum);
 	std::string GenerateCodeHelper(Node* node);
 public:
+	static std::string IntConvertByte(unsigned int IntNum);
 	void SetErrorCallback(FPtr p);
 	const BYTE AssignFloat = 0x02;
 	const BYTE CopyFloat = 0x04;
 	const BYTE MathCode = 0x0D;
 	std::map<char, BYTE> BinaryOpCMD;
-	std::map<char, BYTE>RightOpCMD;
+	std::map<char, BYTE> RightOpCMD;
 	std::string ResultAddr;
 	void initMap();
 	MemoryInfo memory_info_;
@@ -57,4 +60,3 @@ public:
 	std::string GenerateCode(std::string str) override;
 	std::string GenerateCodeByProxy(std::string str, const char* file_path, const char* temp_file_path);
 };
-
